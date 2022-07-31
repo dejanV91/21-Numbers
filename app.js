@@ -1,23 +1,20 @@
-function getElement(element) {
-    const elem = document.querySelector(element)
-    return elem
-}
+const setNumber = ((element)=>{
+    const maxValue = parseInt(element.dataset.value);
+    const current = Math.ceil(maxValue/1000);
+    let counter = 0;
+    const setting = setInterval(()=>{
+        counter += current;
+        if (counter >= maxValue) {
+            element.textContent = maxValue;
+            clearInterval(setting);
+            return
+        }
+        element.textContent = counter;
+    },1);
+});
 
-class Number{
-    constructor(element, number){
-        this.element = element;
-        this.number = number;
+const list = [...document.querySelectorAll(".no")];
 
-        
-        const numberUsers = this.element.querySelector(".no");
-        this.setNumber(numberUsers);
-       
-    }
-
-  
-}
-
-
-const item1 = new Number(getElement(".first"), 1000);
-const item2 = new Number(getElement(".second"), 1000);
-const item3 = new Number(getElement(".third"), 1000);
+list.forEach((item)=>{
+    setNumber(item);
+});
